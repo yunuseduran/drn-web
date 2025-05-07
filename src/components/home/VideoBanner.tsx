@@ -11,58 +11,117 @@ const VideoBanner = () => {
   const [videoError, setVideoError] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string>('');
   const videoRef = useRef<HTMLVideoElement>(null);
+  const videoAttemptedRef = useRef(false);
 
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
+      const mobile = window.innerWidth < 768;
+      setIsMobile(mobile);
+      
+      // If we're on mobile, we set videoLoaded to true to skip 
+      // the video loading process entirely
+      if (mobile && !videoLoaded) {
+        setVideoLoaded(true);
+      }
     };
     
     checkMobile();
     window.addEventListener('resize', checkMobile);
     
-    // Preload video
-    const preloadVideo = async () => {
-      if (videoRef.current) {
+    return () => {
+      window.removeEventListener('resize', checkMobile);
+    };
+  }, [videoLoaded]);
+
+  // Separate effect for video handling to allow proper cleanup
+  useEffect(() => {
+    let videoElement = videoRef.current;
+    
+    // Skip video initialization on mobile
+    if (isMobile) return;
+
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'hidden' && videoElement) {
+        // User navigated away - pause video safely
         try {
-          videoRef.current.load();
-          // Prefetch video metadata
-          await videoRef.current.play();
-          videoRef.current.pause();
-          videoRef.current.currentTime = 0;
-          
-          // Wait a brief moment and then start playing
-          setTimeout(() => {
-            if (videoRef.current) {
-              videoRef.current.play()
-                .then(() => {
-                  console.log('Video playback started successfully');
-                  setVideoLoaded(true);
-                })
-                .catch(e => {
-                  console.error("Video autoplay failed:", e);
-                  setErrorMessage(e.message || 'Video otomatik oynatma başarısız oldu');
-                  setVideoError(true);
-                });
-            }
-          }, 300);
-        } catch (err) {
-          console.error("Video loading error:", err);
-          setVideoError(true);
-          setErrorMessage(typeof err === 'object' && err !== null ? (err as Error).message : 'Video yüklenirken bir hata oluştu');
+          videoElement.pause();
+        } catch (e) {
+          console.log('Failed to pause video on visibility change', e);
         }
       }
     };
 
-    preloadVideo();
+    // Listen for visibility change events (user navigating away)
+    document.addEventListener('visibilitychange', handleVisibilityChange);
     
-    return () => {
-      window.removeEventListener('resize', checkMobile);
-      // Stop video on unmount
-      if (videoRef.current) {
-        videoRef.current.pause();
+    // Preload video
+    const preloadVideo = async () => {
+      if (!videoElement || videoAttemptedRef.current) return;
+      
+      videoAttemptedRef.current = true;
+      
+      try {
+        videoElement.load();
+        // Set up event listeners before attempting to play
+        
+        const playPromise = videoElement.play();
+        
+        if (playPromise !== undefined) {
+          playPromise
+            .then(() => {
+              console.log('Video playback started successfully');
+              setVideoLoaded(true);
+            })
+            .catch(e => {
+              console.error("Video autoplay failed:", e);
+              
+              // For autoplay restrictions, try muted playback as fallback
+              if (videoElement) {
+                videoElement.muted = true;
+                videoElement.play()
+                  .then(() => {
+                    console.log('Muted video playback started successfully');
+                    setVideoLoaded(true);
+                  })
+                  .catch(err => {
+                    console.error("Even muted video failed:", err);
+                    setErrorMessage(err.message || 'Video otomatik oynatma başarısız oldu');
+                    setVideoError(true);
+                  });
+              }
+            });
+        }
+      } catch (err) {
+        console.error("Video loading error:", err);
+        setVideoError(true);
+        setErrorMessage(typeof err === 'object' && err !== null ? (err as Error).message : 'Video yüklenirken bir hata oluştu');
       }
     };
-  }, []);
+
+    // Only attempt to preload if not on mobile
+    if (!isMobile) {
+      preloadVideo();
+    }
+    
+    return () => {
+      // Proper cleanup to avoid the error
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+      
+      if (videoElement) {
+        // Important: cancel any pending play promises
+        try {
+          videoElement.pause();
+          videoElement.src = '';
+          videoElement.load();
+        } catch (e) {
+          console.log('Cleanup error:', e);
+        }
+      }
+      
+      // Clear reference
+      videoElement = null;
+    };
+  }, [isMobile]);
 
   const handleVideoError = (e: React.SyntheticEvent<HTMLVideoElement, Event>) => {
     const target = e.target as HTMLVideoElement;
@@ -91,7 +150,6 @@ const VideoBanner = () => {
         <>
           <video
             ref={videoRef}
-            autoPlay
             loop
             muted
             playsInline
