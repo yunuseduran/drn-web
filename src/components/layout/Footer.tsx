@@ -15,13 +15,15 @@ const Footer = () => {
           {/* Logo ve Kısa Bilgi */}
           <div className="col-span-1">
             <div className="mb-6">
-              <Image 
-                src="/images/drn-moda-logo.png" 
-                alt="DRN Moda Tekstil Logo" 
-                width={180} 
-                height={50} 
-                className="mb-4 brightness-110"
-              />
+              <div className="bg-white p-3 rounded-lg inline-block mb-4">
+                <Image 
+                  src="/images/drn-moda-logo.png" 
+                  alt="DRN Moda Tekstil Logo" 
+                  width={180} 
+                  height={50} 
+                  className="h-auto"
+                />
+              </div>
               <p className="text-gray-400 mb-4">
                 DRN Moda Tekstil, 30 yıllık tecrübesiyle tekstil sektöründe
                 kalite ve yenilikçiliğin öncüsü olmaya devam ediyor.

@@ -52,15 +52,15 @@ const services = [
 
 const ServicesSection = () => {
   return (
-    <section className="py-16 md:py-24">
+    <section className="py-16 md:py-24 bg-black">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h6 className="text-[#af8107] font-medium mb-2">HİZMETLERİMİZ</h6>
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
             Ne Yapıyoruz?
           </h2>
           <div className="w-20 h-1 bg-[#af8107] mx-auto mb-6"></div>
-          <p className="text-gray-600 text-lg max-w-3xl mx-auto">
+          <p className="text-gray-300 text-lg max-w-3xl mx-auto">
             Tasarımdan üretime, tedarikten sevkiyata kadar tekstil sektöründe
             uçtan uca hizmet sağlıyoruz.
           </p>
@@ -70,18 +70,18 @@ const ServicesSection = () => {
           {services.map((service) => (
             <div 
               key={service.id} 
-              className="bg-white p-8 rounded-lg shadow-lg border border-gray-100 transition-transform duration-300 hover:-translate-y-2"
+              className="bg-gray-900 p-8 rounded-lg shadow-lg border border-gray-800 transition-transform duration-300 hover:-translate-y-2"
             >
               <div className="text-[#af8107] mb-4">
                 {service.icon}
               </div>
-              <h3 className="text-xl font-bold text-gray-800 mb-3">
+              <h3 className="text-xl font-bold text-white mb-3">
                 {service.title}
               </h3>
-              <p className="text-gray-600 mb-6">
+              <p className="text-gray-300 mb-6">
                 {service.description}
               </p>
-              <Link href={service.link} className="text-[#af8107] font-medium inline-flex items-center">
+              <Link href={service.link} className="text-[#af8107] font-medium inline-flex items-center hover:text-[#d9a10a]">
                 Detaylı Bilgi
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 ml-1">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
