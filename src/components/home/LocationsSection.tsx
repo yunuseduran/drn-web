@@ -42,15 +42,15 @@ const locations: Location[] = [
 
 const LocationsSection = () => {
   return (
-    <section className="py-16 md:py-24">
+    <section className="py-16 md:py-24 bg-black">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h6 className="text-[#af8107] font-medium mb-2">NEREDE YAPIYORUZ</h6>
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
             Global Ayak İzimiz
           </h2>
           <div className="w-20 h-1 bg-[#af8107] mx-auto mb-6"></div>
-          <p className="text-gray-600 text-lg max-w-3xl mx-auto">
+          <p className="text-gray-300 text-lg max-w-3xl mx-auto">
             Türkiye&apos;deki modern tesislerimizde, dünya standartlarında 
             üretim yaparak küresel müşterilerimize hizmet veriyoruz.
           </p>
@@ -60,7 +60,7 @@ const LocationsSection = () => {
           {locations.map((location) => (
             <div 
               key={location.id}
-              className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow"
+              className="bg-gray-900 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow"
             >
               <div className="relative h-60">
                 <Image
@@ -70,12 +70,12 @@ const LocationsSection = () => {
                   height={300}
                   className="w-full h-full object-cover"
                 />
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 to-transparent p-4">
                   <span className="inline-block px-3 py-1 bg-[#af8107] text-white text-xs font-medium rounded-full mb-2">
                     {location.type}
                   </span>
                   <h3 className="text-xl font-bold text-white">{location.name}</h3>
-                  <p className="text-white/80">{location.city}, {location.country}</p>
+                  <p className="text-white/90">{location.city}, {location.country}</p>
                 </div>
               </div>
             </div>
