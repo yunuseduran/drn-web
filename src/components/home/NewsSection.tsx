@@ -51,7 +51,7 @@ const NewsSection = () => {
           </h2>
           <div className="w-20 h-1 bg-[#af8107] mx-auto mb-6"></div>
           <p className="text-gray-600 text-lg max-w-3xl mx-auto">
-            DRN Moda Tekstil'deki en son gelişmeleri ve sektörel haberleri takip edin.
+            DRN Moda Tekstil&apos;deki en son gelişmeleri ve sektörel haberleri takip edin.
           </p>
         </div>
         

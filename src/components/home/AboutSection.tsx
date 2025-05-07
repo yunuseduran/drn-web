@@ -31,14 +31,14 @@ const AboutSection = () => {
             </div>
             
             <p className="text-gray-600 text-lg mb-4">
-              DRN Moda Tekstil olarak, 1998'den bu yana dünya çapında müşterilerimize
+              DRN Moda Tekstil olarak, 1998&apos;den bu yana dünya çapında müşterilerimize
               yüksek kaliteli tekstil ürünleri sunarak sektöre öncülük ediyoruz. Günümüzün hızla değişen
               moda dünyasında, yenilikçi tasarımlarımız ve çevre dostu üretim süreçlerimizle fark yaratıyoruz.
             </p>
             
             <p className="text-gray-600 text-lg">
-              Türkiye'deki modern tesislerimizde, dünya standartlarında üretim yaparak Avrupa, Amerika ve
-              Orta Doğu'daki önde gelen markalara hizmet veriyoruz.
+              Türkiye&apos;deki modern tesislerimizde, dünya standartlarında üretim yaparak Avrupa, Amerika ve
+              Orta Doğu&apos;daki önde gelen markalara hizmet veriyoruz.
             </p>
             
             <div className="pt-4">

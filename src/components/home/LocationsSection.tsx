@@ -51,7 +51,7 @@ const LocationsSection = () => {
           </h2>
           <div className="w-20 h-1 bg-[#af8107] mx-auto mb-6"></div>
           <p className="text-gray-600 text-lg max-w-3xl mx-auto">
-            Türkiye'deki modern tesislerimizde, dünya standartlarında 
+            Türkiye&apos;deki modern tesislerimizde, dünya standartlarında 
             üretim yaparak küresel müşterilerimize hizmet veriyoruz.
           </p>
         </div>

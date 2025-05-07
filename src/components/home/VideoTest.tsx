@@ -53,7 +53,7 @@ const VideoTest = () => {
           <li>Make sure the video file exists at public/videos/drn-video.mp4</li>
           <li>Check that the video format is compatible with your browser</li>
           <li>Try converting the video to a different format if needed</li>
-          <li>Try reducing the video file size if it's too large</li>
+          <li>Try reducing the video file size if it&apos;s too large</li>
         </ul>
       </div>
     </div>
