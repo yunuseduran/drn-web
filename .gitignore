@@ -1,0 +1,32 @@
+# Node modules
+node_modules/
+
+# Next.js build output
+.next/
+out/
+
+# Alt projeler
+drn-moda-site/
+drn-moda-cms/
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Debug logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Sistem dosyaları
+.DS_Store
+*.pem
+
+# Vercel deployment dosyaları
+.vercel
+
+# TypeScript derleme çıktıları
+*.tsbuildinfo 
