@@ -5,10 +5,6 @@ node_modules/
 .next/
 out/
 
-# Alt projeler
-drn-moda-site/
-drn-moda-cms/
-
 # Environment variables
 .env
 .env.local

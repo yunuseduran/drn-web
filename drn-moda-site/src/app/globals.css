@@ -1,0 +1,131 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+  --primary: #C8A028;
+  --gray: #E5E5E5;
+  --background: #ffffff;
+  --foreground: #000000;
+}
+
+@layer base {
+  /* Add SVG map interactions */
+  svg g[data-plate] {
+    cursor: pointer;
+  }
+
+  svg g[data-plate] > path {
+    transition: all 0.2s linear;
+  }
+
+  svg g[data-plate]:hover > path,
+  svg g[data-plate].active > path {
+    fill: var(--gray);
+  }
+
+  /* Turkey Map styles for object tag */
+  object.turkey-map {
+    width: 100%;
+    height: auto;
+  }
+
+  /* Production facility markers */
+  .marker-pulse {
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0% {
+      box-shadow: 0 0 0 0 rgba(200, 160, 40, 0.6);
+    }
+    70% {
+      box-shadow: 0 0 0 15px rgba(200, 160, 40, 0);
+    }
+    100% {
+      box-shadow: 0 0 0 0 rgba(200, 160, 40, 0);
+    }
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --background: #0a0a0a;
+      --foreground: #ededed;
+    }
+  }
+
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: Arial, Helvetica, sans-serif;
+  }
+}
+
+@layer components {
+  /* Turkey Map Interactive Styles */
+  .turkey-map g[data-plate] {
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+
+  .turkey-map g[data-plate]:hover path {
+    fill: #f0f0f0;
+    stroke: #C8A028;
+    stroke-width: 2;
+  }
+
+  .turkey-map g[data-plate].active path {
+    fill: #E5E5E5;
+    stroke: #C8A028;
+    stroke-width: 2;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+  }
+
+  /* Facility marker styles */
+  .facility-marker .marker-pulse {
+    width: 24px;
+    height: 24px;
+    background-color: #C8A028;
+    border: 3px solid #fff;
+    box-shadow: 0 0 0 rgba(200, 160, 40, 0.6);
+    animation: pulse 2s infinite;
+    z-index: 9999;
+  }
+
+  /* Marker etiketini her zaman üstte göster */
+  .marker-label {
+    z-index: 9999;
+    opacity: 1;
+    visibility: visible;
+    font-weight: 600;
+  }
+
+  /* Genel Merkez marker styles */
+  .facility-marker .merkez-marker {
+    background-color: #d35400;
+    border: 3px solid #fff;
+    box-shadow: 0 0 0 rgba(211, 84, 0, 0.6);
+    animation: merkez-pulse 2s infinite;
+    z-index: 9999;
+  }
+
+  @keyframes merkez-pulse {
+    0% {
+      box-shadow: 0 0 0 0 rgba(211, 84, 0, 0.6);
+    }
+    70% {
+      box-shadow: 0 0 0 15px rgba(211, 84, 0, 0);
+    }
+    100% {
+      box-shadow: 0 0 0 0 rgba(211, 84, 0, 0);
+    }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateX(-50%) translateY(10px); }
+    to { opacity: 1; transform: translateX(-50%) translateY(0); }
+  }
+}

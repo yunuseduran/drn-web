@@ -1,0 +1,54 @@
+{
+  "kind": "collectionType",
+  "collectionName": "jobs",
+  "info": {
+    "singularName": "job",
+    "pluralName": "jobs",
+    "displayName": "Job"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "Pozisyon": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "required": true
+    },
+    "Konum": {
+      "type": "enumeration",
+      "enum": [
+        "İstanbul (Genel Merkez)",
+        "Erbaa (Üretim)",
+        "İstanbul (Üretim)"
+      ],
+      "required": true
+    },
+    "PozisyonSekli": {
+      "type": "enumeration",
+      "enum": [
+        "Tam Zamanlı",
+        "Yarı Zamanlı",
+        "Stajyer"
+      ]
+    },
+    "JobsType": {
+      "type": "enumeration",
+      "enum": [
+        "Tasarım",
+        "Üretim",
+        "Kalite",
+        "Dış Ticaret"
+      ],
+      "required": true,
+      "default": "Üretim"
+    },
+    "content": {
+      "type": "richtext",
+      "required": true
+    }
+  }
+}

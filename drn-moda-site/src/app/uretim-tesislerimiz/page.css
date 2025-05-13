@@ -1,0 +1,100 @@
+/* Turkey Map Styling */
+.turkey-map-container {
+  position: relative;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.turkey-map-container svg {
+  width: 100%;
+  height: auto;
+}
+
+/* SVG Path Interactions */
+.turkey-map-container svg g[data-plate] {
+  cursor: pointer;
+}
+
+.turkey-map-container svg g[data-plate] > path {
+  transition: all 0.2s linear;
+  fill: #fff;
+}
+
+.turkey-map-container svg g[data-plate]:hover > path,
+.turkey-map-container svg g[data-plate].active > path {
+  fill: var(--gray);
+}
+
+/* Highlight production facility locations */
+.turkey-map-container svg g[data-plate="60"] > path,
+.turkey-map-container svg g[data-plate="34"] > path {
+  fill: var(--gray);
+}
+
+/* Facility markers */
+.facility-marker {
+  cursor: pointer;
+  position: absolute;
+  z-index: 10;
+}
+
+.facility-marker .marker {
+  width: 16px;
+  height: 16px;
+  background-color: var(--primary);
+  border-radius: 50%;
+  position: relative;
+  box-shadow: 0 0 0 rgba(200, 160, 40, 0.4);
+  animation: pulse 2s infinite;
+}
+
+.facility-marker .label {
+  position: absolute;
+  top: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-size: 14px;
+  font-weight: 600;
+  color: #444;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(200, 160, 40, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(200, 160, 40, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(200, 160, 40, 0);
+  }
+}
+
+/* Facility info card */
+.facility-info {
+  background-color: white;
+  border-radius: 8px;
+  padding: 20px;
+  margin-top: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.facility-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  margin-top: 40px;
+}
+
+.facility-card {
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 20px;
+  transition: all 0.3s ease;
+}
+
+.facility-card:hover {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  transform: translateY(-5px);
+} 
