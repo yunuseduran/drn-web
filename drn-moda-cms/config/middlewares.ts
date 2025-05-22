@@ -1,13 +1,34 @@
 export default [
   'strapi::logger',
   'strapi::errors',
-  'strapi::security',
+  {
+    name: 'strapi::security',
+    config: {
+      contentSecurityPolicy: {
+        useDefaults: true,
+        directives: {
+          'connect-src': ["'self'", 'http:', 'https:', 'https://drn-moda-cms.onrender.com'],
+          'img-src': ["'self'", 'data:', 'blob:', 'market-assets.strapi.io', 'res.cloudinary.com', 'https://drn-moda-cms.onrender.com'],
+          'media-src': ["'self'", 'data:', 'blob:', 'market-assets.strapi.io', 'res.cloudinary.com', 'https://drn-moda-cms.onrender.com'],
+          upgradeInsecureRequests: null,
+        },
+      },
+    },
+  },
   {
     name: 'strapi::cors',
     config: {
-      origin: ['http://localhost:3000', 'http://127.0.0.1:3000'],
+      enabled: true,
+      origin: [
+        'http://localhost:3000',
+        'https://drnmoda.vercel.app',
+        'http://localhost:1337',
+        'https://drn-moda-cms.onrender.com'
+      ],
+      headers: '*',
+      methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS', 'HEAD'],
       credentials: true,
-    },
+    }
   },
   'strapi::poweredBy',
   'strapi::query',
