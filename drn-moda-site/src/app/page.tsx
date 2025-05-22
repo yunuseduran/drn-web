@@ -12,15 +12,8 @@ import NewsSection from "@/components/home/NewsSection";
 export default function Home() {
   return (
     <main>
-      <VideoBanner />
-      <AboutSection />
-      <ServicesSection />
-      <CategoryShowcase />
-      <StatsSection />
-      <LocationsSection />
-      <SustainabilitySection />
-      <HRSection />
-      <NewsSection />
-      </main>
+      <h1>Merhaba Dünya - Test Sayfası</h1>
+      <p>Bu sayfa Vercel deploy sorununu test etmek için basitleştirilmiştir.</p>
+    </main>
   );
 }
