@@ -619,43 +619,58 @@ export async function getHaberBySlug(slug: string) {
     
     console.log('API yanıtı alındı:', JSON.stringify(response.data, null, 2));
     
-    // Veri dizisini kontrol et
     const rawData = response.data.data || [];
     if (!Array.isArray(rawData) || rawData.length === 0) {
       console.warn(`Slug "${slug}" için haber bulunamadı`);
       return null;
     }
     
-    // İlk eşleşen haberi al
-    const item = rawData[0];
+    const item = rawData[0]; // Strapi v4 item (id ve attributes içerir)
     
-    // Görsel işleme
-    let imageData = null;
-    if (item.image && item.image.data) {
-      imageData = item.image.data;
-    } else if (item.image) {
-      imageData = item.image;
+    let finalImageForHaber: import('@/types/news').MediaImage | undefined = undefined;
+
+    if (item.attributes.image && item.attributes.image.data) {
+      finalImageForHaber = {
+        data: {
+          id: item.attributes.image.data.id,
+          attributes: {
+            url: item.attributes.image.data.attributes.url,
+            width: item.attributes.image.data.attributes.width,
+            height: item.attributes.image.data.attributes.height,
+            alternativeText: item.attributes.image.data.attributes.alternativeText,
+          }
+        }
+      };
+    } else if (item.attributes.image && item.attributes.image.id && item.attributes.image.attributes) {
+      // Eğer item.attributes.image doğrudan id ve attributes içeriyorsa (populate bazen böyle dönebilir)
+      finalImageForHaber = {
+        data: { 
+          id: item.attributes.image.id,
+          attributes: item.attributes.image.attributes
+        }
+      };
+    } else {
+      finalImageForHaber = undefined; // Veya tipinize göre { data: null }
     }
     
-    // Haberi TypeScript yapısına uygun dönüştür
     const haber = {
       id: item.id,
       attributes: {
-        title: item.title || "Başlık Yok",
-        slug: item.slug || `haber-${item.id}`,
-        content: item.content || "",
-        description: item.description || "",
-        date: item.date || null,
-        publishedAt: item.publishedAt || new Date().toISOString(),
-        createdAt: item.createdAt || new Date().toISOString(),
-        updatedAt: item.updatedAt || new Date().toISOString(),
-        image: imageData ? { data: { attributes: imageData } } : { data: null }
+        title: item.attributes.title || "Başlık Yok",
+        slug: item.attributes.slug || `haber-${item.id}`,
+        content: item.attributes.content || "",
+        description: item.attributes.description || "",
+        date: item.attributes.date || null,
+        publishedAt: item.attributes.publishedAt || new Date().toISOString(),
+        createdAt: item.attributes.createdAt || new Date().toISOString(),
+        updatedAt: item.attributes.updatedAt || new Date().toISOString(),
+        image: finalImageForHaber 
       }
     };
     
     console.log(`Haber detayı başarıyla alındı: ${haber.id}, ${haber.attributes.title}`);
     console.log('Image data:', JSON.stringify(haber.attributes.image, null, 2));
-    return haber;
+    return haber as import('@/types/news').Haber;
     
   } catch (error) {
     console.error(`Error fetching haber with slug ${slug}:`, error);
