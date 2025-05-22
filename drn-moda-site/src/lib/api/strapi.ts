@@ -530,20 +530,42 @@ export async function getHaberler() {
     
     // API'den gelen her haberi TypeScript yapısına uygun dönüştür
     const haberler = rawData.map(item => {
-      // Ham veriyi loglayarak incelemek için
-      console.log(`Haber ID: ${item.id}, Başlık: ${item.title || "Başlık yok"}`);
+      let finalImageForHaber: import('@/types/news').MediaImage | undefined = undefined;
+      if (item.attributes.image && item.attributes.image.data) {
+        finalImageForHaber = {
+          data: {
+            id: item.attributes.image.data.id,
+            attributes: {
+              url: item.attributes.image.data.attributes.url,
+              width: item.attributes.image.data.attributes.width,
+              height: item.attributes.image.data.attributes.height,
+              alternativeText: item.attributes.image.data.attributes.alternativeText,
+            }
+          }
+        };
+      } else if (item.attributes.image && item.attributes.image.id && item.attributes.image.attributes) {
+        finalImageForHaber = {
+          data: { 
+            id: item.attributes.image.id,
+            attributes: item.attributes.image.attributes
+          }
+        };
+      } else {
+        finalImageForHaber = undefined; 
+      }
+
       return {
         id: item.id,
         attributes: {
-          title: item.title || "Başlık Yok",
-          slug: item.slug || `haber-${item.id}`,
-          content: item.content || "",
-          description: item.description || "",
-          date: item.date || null,
-          publishedAt: item.publishedAt || new Date().toISOString(),
-          createdAt: item.createdAt || new Date().toISOString(),
-          updatedAt: item.updatedAt || new Date().toISOString(),
-          image: item.image ? { data: { attributes: item.image } } : { data: null }
+          title: item.attributes.title || "Başlık Yok",
+          slug: item.attributes.slug || `haber-${item.id}`,
+          content: item.attributes.content || "",
+          description: item.attributes.description || "",
+          date: item.attributes.date || null,
+          publishedAt: item.attributes.publishedAt || new Date().toISOString(),
+          createdAt: item.attributes.createdAt || new Date().toISOString(),
+          updatedAt: item.attributes.updatedAt || new Date().toISOString(),
+          image: finalImageForHaber 
         }
       };
     });
@@ -551,8 +573,7 @@ export async function getHaberler() {
     console.log(`${haberler.length} haber başarıyla dönüştürüldü:`, 
       haberler.map(h => `${h.id}: ${h.attributes.title}`).join(', '));
     
-    return haberler;
-    
+    return haberler as import('@/types/news').Haber[];
   } catch (error) {
     console.error('===== HABERLER API HATASI =====');
     console.error('Error fetching haberler:', error);
