@@ -16,7 +16,8 @@ const nextConfig = {
       'source.unsplash.com',
       'images.unsplash.com',
       'cloudinary.com',
-      'res.cloudinary.com'
+      'res.cloudinary.com',
+      'drn-moda-cms.onrender.com'
     ],
     formats: ['image/avif', 'image/webp'],
     remotePatterns: [
@@ -24,6 +25,12 @@ const nextConfig = {
         protocol: 'http',
         hostname: 'localhost',
         port: '1337',
+        pathname: '/uploads/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'drn-moda-cms.onrender.com',
+        port: '',
         pathname: '/uploads/**',
       },
     ],
