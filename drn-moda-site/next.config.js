@@ -54,7 +54,6 @@ const nextConfig = {
   
   // Increase the maximum size for static assets
   experimental: {
-    appDir: true,
     largePageDataBytes: 128 * 1024 * 1024, // 128MB
   },
   
