@@ -41,7 +41,7 @@ export default function HaberlerPage() {
           console.log(`Haber ${haber.id}: ${haber.attributes.title}, Slug: ${haber.attributes.slug}`);
         });
         
-        setHaberler(haberlerData);
+        setHaberler(haberlerData as Haber[]);
         setError(null);
       } catch (error) {
         console.error('Error fetching haberler:', error);

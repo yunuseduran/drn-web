@@ -19,13 +19,8 @@ export default [
     name: 'strapi::cors',
     config: {
       enabled: true,
-      origin: [
-        'http://localhost:3000',
-        'https://drnmoda.vercel.app',
-        'http://localhost:1337',
-        'https://drn-moda-cms.onrender.com'
-      ],
       headers: '*',
+      origin: ['http://localhost:1337', 'http://localhost:3000', 'https://drn-moda-cms.onrender.com', 'https://drnmodatekstil.vercel.app', 'https://drn-web.onrender.com'],
       methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS', 'HEAD'],
       credentials: true,
     }
